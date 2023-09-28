@@ -1,0 +1,33 @@
+loanpro.app:
+  jwtExpirationMs: '30000'
+  jwtCookieName: loanpro
+  jwtSecret: ======================loanpro=Spring===========================
+
+spring.datasource:
+  username: root
+  url: jdbc:mysql://localhost:3306/loan_pro?useSSL=false
+  password: '123456'
+
+jpa.properties.hibernate:
+  dialect: org.hibernate.dialect.MySQLDialect
+  hibernate.ddl-auto: update
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
+random.string:
+  client: randomStringClient
+  url: https://www.random.org
+  num: 1
+  len: 8
+  digits: on
+  upperalpha: on
+  loweralpha: on
+  unique: on
+  rnd: new
+  format: plain
