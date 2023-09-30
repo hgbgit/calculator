@@ -8,11 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RandomStringOperation implements OperationStrategy<String> {
-
-    private static final Integer AMOUNT_OF_STRINGS = 1;
-
-    private static final Integer STRING_LENGTH = 8;
-
     private final RandomStringClient randomStringClient;
     private final String digits;
     private final String upperAlpha;
@@ -22,12 +17,12 @@ public class RandomStringOperation implements OperationStrategy<String> {
     private final String format;
 
     public RandomStringOperation(final RandomStringClient randomStringClient,
-                                 @Value("${random.strings.digits}") final String digits,
-                                 @Value("${random.strings.upperalpha}") final String upperAlpha,
-                                 @Value("${random.strings.loweralpha}") final String lowerAlpha,
-                                 @Value("${random.strings.unique}") final String unique,
-                                 @Value("${random.strings.rnd}") final String rnd,
-                                 @Value("${random.strings.format}") final String format) {
+                                 @Value("${client.string.digits}") final String digits,
+                                 @Value("${client.string.upperalpha}") final String upperAlpha,
+                                 @Value("${client.string.loweralpha}") final String lowerAlpha,
+                                 @Value("${client.string.unique}") final String unique,
+                                 @Value("${client.string.rnd}") final String rnd,
+                                 @Value("${client.string.format}") final String format) {
 
         this.randomStringClient = randomStringClient;
         this.digits = digits;
@@ -46,6 +41,6 @@ public class RandomStringOperation implements OperationStrategy<String> {
 
     @Override
     public String handle(CalculationRequest calculationRequest) {
-        return randomStringClient.getRandomString(AMOUNT_OF_STRINGS, STRING_LENGTH, digits, upperAlpha, lowerAlpha, unique, rnd, format);
+        return randomStringClient.getRandomString(calculationRequest.a().intValue(), calculationRequest.b().intValue(), digits, upperAlpha, lowerAlpha, unique, rnd, format);
     }
 }

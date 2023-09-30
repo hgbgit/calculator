@@ -19,6 +19,7 @@ public class CalculationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('USER')")
     public CalculationResponse authenticateUser(@Valid @RequestBody CalculationRequest calculationRequest) {
         String result = operationService.calculate(calculationRequest);
         return new CalculationResponse(result);

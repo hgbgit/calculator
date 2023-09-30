@@ -13,7 +13,7 @@ public class InsufficientBalanceException extends RuntimeException {
     private final BigDecimal cost;
 
     public InsufficientBalanceException(BigDecimal balance, BigDecimal cost) {
-        super(String.format("Insufficient balance: %. Operation cost: %", balance, cost));
+        super(String.format("Insufficient balance: %.2f Operation cost: %.2f", balance, cost));
         this.balance = balance;
         this.cost = cost;
     }

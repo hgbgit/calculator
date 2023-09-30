@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Digits;
 import java.math.BigDecimal;
 
 
-public record CalculationRequest(@Digits(integer = 3, fraction = 2) BigDecimal a,
-                                 @Digits(integer = 3, fraction = 2) BigDecimal b,
+public record CalculationRequest(@Digits(integer = 10, fraction = 2) BigDecimal a,
+                                 @Digits(integer = 10, fraction = 2) BigDecimal b,
                                  EOperation operation) {
 }
