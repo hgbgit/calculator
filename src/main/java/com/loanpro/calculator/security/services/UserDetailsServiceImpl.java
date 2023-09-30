@@ -29,10 +29,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public User getCurrentUser() {
         return userRepository.findByUsername(
-                        SecurityContextHolder.getContext()
+                ((UserDetailsImpl)SecurityContextHolder.getContext()
                                 .getAuthentication()
-                                .getPrincipal()
-                                .toString())
+                                .getPrincipal()).getUsername())
                 .orElseThrow(() -> new AuthenticationCredentialsNotFoundException("Current user not found, a new log in is required."));
     }
 

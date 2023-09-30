@@ -1,13 +1,12 @@
 package com.loanpro.calculator.payload.request;
 
-import com.loanpro.calculator.common.Operation;
-import jakarta.validation.constraints.NotBlank;
-import lombok.Getter;
+import com.loanpro.calculator.common.EOperation;
+import jakarta.validation.constraints.Digits;
 
 import java.math.BigDecimal;
 
 
-@Getter
-public record CalculationRequest(@NotBlank BigDecimal valueA, @NotBlank BigDecimal valueB,
-                                 @NotBlank Operation operation) {
+public record CalculationRequest(@Digits(integer = 3, fraction = 2) BigDecimal a,
+                                 @Digits(integer = 3, fraction = 2) BigDecimal b,
+                                 EOperation operation) {
 }

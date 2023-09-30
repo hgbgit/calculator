@@ -3,14 +3,14 @@ loanpro.app:
   jwtCookieName: loanpro
   jwtSecret: ======================loanpro=Spring===========================
 
-spring.datasource:
-  username: root
-  url: jdbc:mysql://localhost:3306/loan_pro?useSSL=false
-  password: '123456'
-
-jpa.properties.hibernate:
-  dialect: org.hibernate.dialect.MySQLDialect
-  hibernate.ddl-auto: update
+spring:
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/loan_pro?useSSL=false
+    password: 'Tututipapai@21'
+  jpa:
+    hibernate.dialect: org.hibernate.dialect.MySQLDialect
+    hibernate.ddl-auto: update
 
 feign:
   client:
@@ -20,14 +20,12 @@ feign:
         readTimeout: 5000
         loggerLevel: basic
 
-random.string:
+random.strings:
   client: randomStringClient
-  url: https://www.random.org
-  num: 1
-  len: 8
-  digits: on
-  upperalpha: on
-  loweralpha: on
-  unique: on
-  rnd: new
-  format: plain
+  url: 'https://www.random.org'
+  digits: 'on'
+  upperalpha: 'on'
+  loweralpha: 'on'
+  unique: 'on'
+  rnd: 'new'
+  format: 'plain'

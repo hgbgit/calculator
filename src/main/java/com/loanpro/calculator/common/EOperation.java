@@ -1,6 +1,6 @@
 package com.loanpro.calculator.common;
 
-public enum Operation {
+public enum EOperation {
     ADDITION,
     SUBTRACTION,
     MULTIPLICATION,
