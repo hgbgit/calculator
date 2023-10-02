@@ -45,7 +45,7 @@ public class OperationService {
                 .map(op -> op.handle(calculationRequest))
                 .findFirst().orElseThrow(() -> new OperationNotSupportedException("Unable to perform operation"));
 
-        Record record = buildrecord(user, operation, result);
+        Record record = buildRecord(user, operation, result);
 
         recordRepository.save(record);
         updateUserBalance(user, operation);
@@ -64,7 +64,7 @@ public class OperationService {
         userRepository.save(user);
     }
 
-    private Record buildrecord(User user, Operation operation, Object result) {
+    private Record buildRecord(User user, Operation operation, Object result) {
         Record record = new Record();
         record.setOperation(operation);
         record.setUser(user);
