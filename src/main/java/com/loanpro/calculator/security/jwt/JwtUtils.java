@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.util.WebUtils;
 
 import io.jsonwebtoken.*;
@@ -31,6 +33,7 @@ public class JwtUtils {
   @Value("${loanpro.app.jwtCookieName}")
   private String jwtCookie;
 
+  private static final String AUTHORIZATION_HEADER = "Authorization";
   public String getJwtFromCookies(HttpServletRequest request) {
     Cookie cookie = WebUtils.getCookie(request, jwtCookie);
     if (cookie != null) {
@@ -38,6 +41,10 @@ public class JwtUtils {
     } else {
       return null;
     }
+  }
+
+  public String getJwtFromHeader(HttpServletRequest request){
+    return request.getHeader(AUTHORIZATION_HEADER);
   }
 
   public ResponseCookie generateJwtCookie(UserDetailsImpl userPrincipal) {
