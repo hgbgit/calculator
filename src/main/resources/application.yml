@@ -5,12 +5,13 @@ loanpro.app:
 
 spring:
   datasource:
-    username: root
+    username: loan_pro
     url: jdbc:mysql://localhost:3306/loan_pro?useSSL=false
-    password: 'Tututipapai@21'
+    password: 'loan_pro_path'
   jpa:
     hibernate.dialect: org.hibernate.dialect.MySQLDialect
-    hibernate.ddl-auto: update
+  flyway:
+    baselineOnMigrate: true
 
 feign:
   client:
