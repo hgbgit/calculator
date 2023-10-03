@@ -17,7 +17,7 @@ public class RecordsController {
 
     private final RecordsService recordsService;
 
-    @PostMapping
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('USER')")
     public Page<RecordResponse> listRecords(Pageable pageable) {
