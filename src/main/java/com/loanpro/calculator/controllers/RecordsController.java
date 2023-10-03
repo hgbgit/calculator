@@ -2,6 +2,7 @@ package com.loanpro.calculator.controllers;
 
 import com.loanpro.calculator.payload.response.RecordResponse;
 import com.loanpro.calculator.services.RecordsService;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +21,16 @@ public class RecordsController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('USER')")
-    public Page<RecordResponse> listRecords(Pageable pageable) {
-        return recordsService.listRecords(pageable);
+    public Page<RecordResponse> listRecords(Pageable pageable, @RequestParam(required = false) String operation) {
+        return recordsService.listRecords(pageable, operation);
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasRole('USER')")
+    @RequestMapping("/{id}")
+    public void deleteRecord(@PathVariable("id") Long id) {
+        recordsService.deleteRecord(id);
     }
 
 }

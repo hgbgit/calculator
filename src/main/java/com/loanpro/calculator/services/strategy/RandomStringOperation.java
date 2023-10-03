@@ -41,6 +41,6 @@ public class RandomStringOperation implements OperationStrategy<String> {
 
     @Override
     public String handle(CalculationRequest calculationRequest) {
-        return randomStringClient.getRandomString(calculationRequest.a().intValue(), calculationRequest.b().intValue(), digits, upperAlpha, lowerAlpha, unique, rnd, format);
+        return randomStringClient.getRandomString(calculationRequest.a().intValue(), calculationRequest.b().intValue(), digits, upperAlpha, lowerAlpha, unique, rnd, format).replace("\n", "");
     }
 }

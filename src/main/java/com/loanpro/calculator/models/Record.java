@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.math.BigDecimal;
@@ -13,6 +15,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "record")
+@SQLDelete(sql = "UPDATE record SET active = false WHERE id = ?")
+@Where(clause = "active = true")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -36,6 +40,9 @@ public class Record {
 
     @Column
     private String operationResponse;
+
+    @Column
+    private Boolean active;
 
     @CreatedDate
     private LocalDateTime date;

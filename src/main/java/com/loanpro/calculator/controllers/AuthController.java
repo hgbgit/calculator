@@ -13,6 +13,7 @@ import com.loanpro.calculator.security.jwt.JwtUtils;
 import com.loanpro.calculator.security.services.UserDetailsImpl;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,6 +54,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager
@@ -77,6 +79,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
+    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
@@ -130,6 +133,7 @@ public class AuthController {
     }
 
     @PostMapping("/signout")
+    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> logoutUser() {
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())

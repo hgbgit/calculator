@@ -6,12 +6,13 @@ loanpro.app:
 spring:
   datasource:
     username: loan_pro
-    url: jdbc:mysql://localhost:3306/loan_pro?useSSL=false
+    url: jdbc:mysql://localhost:3306/loan_pro?allowPublicKeyRetrieval=true&useSSL=false
     password: 'loan_pro_path'
   jpa:
     hibernate.dialect: org.hibernate.dialect.MySQLDialect
   flyway:
     baselineOnMigrate: true
+
 
 feign:
   client:
@@ -30,3 +31,15 @@ client.string:
   unique: 'on'
   rnd: 'new'
   format: 'plain'
+
+mdcfilter:
+  request-id-header: X-Request-Id
+  response-id-header: X-Request-Id
+  mdc-log-key: MDCFilter.UUID
+
+logging:
+  pattern:
+    console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(-%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:) %clr(%X{MDCFilter.UUID} :){red} %m%n %wEx'
+
+errors:
+  expose-arguments: ALWAYS
