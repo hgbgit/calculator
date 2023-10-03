@@ -73,7 +73,7 @@ public class AuthController {
                         userDetails.getUsername(),
                         userDetails.getEmail(),
                         roles,
-                        jwtCookie.toString()));
+                        jwtCookie.getValue()));
     }
 
     @PostMapping("/signup")
