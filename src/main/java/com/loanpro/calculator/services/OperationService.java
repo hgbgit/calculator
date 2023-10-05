@@ -15,6 +15,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -71,6 +72,8 @@ public class OperationService {
         record.setAmount(operation.getCost());
         record.setUserBalance(user.getUserBalance());
         record.setOperationResponse(result.toString());
+        record.setActive(true);
+        record.setDate(LocalDateTime.now());
         return record;
     }
 }
