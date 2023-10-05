@@ -1,5 +1,6 @@
 package com.loanpro.calculator.config;
 
+import com.loanpro.calculator.security.services.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,23 +23,40 @@ public class MDCFilter extends OncePerRequestFilter {
 
     private final String responseIdHeader;
     private final String mdcLogKey;
+
+    private final String mdcUserKey;
     private final String requestIdHeader;
+
+    private final UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     public MDCFilter(@Value("${mdcfilter.request-id-header}") String requestHeader,
                      @Value("${mdcfilter.response-id-header}") String responseHeader,
-                     @Value("${mdcfilter.mdc-log-key}") String mdcLogKey) {
+                     @Value("${mdcfilter.mdc-log-key}") String mdcLogKey,
+                     @Value("${mdcfilter.mdc-log-user}") String mdcLogUser,
+                     UserDetailsServiceImpl userDetailsService) {
         this.responseIdHeader = responseHeader;
         this.mdcLogKey = mdcLogKey;
         this.requestIdHeader = requestHeader;
+        this.userDetailsService = userDetailsService;
+        this.mdcUserKey = mdcLogUser;
     }
 
     @Override
     protected void doFilterInternal(@NonNull final HttpServletRequest request, @NonNull final HttpServletResponse response,
                                     @NonNull final FilterChain chain) throws java.io.IOException, ServletException {
+        String currentUser = "";
+
+        try {
+            currentUser = userDetailsService.getCurrentUser().getId().toString();
+        } catch (Exception ex) {
+            currentUser = "unauthenticated user";
+        }
+
         try {
             final String requestIdFromRequest = this.findRequestIdFromRequest(request);
             MDC.put(mdcLogKey, requestIdFromRequest);
+            MDC.put(mdcUserKey, currentUser);
 
             Optional.ofNullable(responseIdHeader)
                     .filter(resHead -> !StringUtils.isEmpty(resHead))

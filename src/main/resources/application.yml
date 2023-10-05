@@ -12,6 +12,8 @@ spring:
     hibernate.dialect: org.hibernate.dialect.MySQLDialect
   flyway:
     baselineOnMigrate: true
+  mvc.throw-exception-if-no-handler-found: true
+  web.resources.add-mappings: false
 
 
 feign:
@@ -36,10 +38,11 @@ mdcfilter:
   request-id-header: X-Request-Id
   response-id-header: X-Request-Id
   mdc-log-key: MDCFilter.UUID
+  mdc-log-user: MDCFilter.USER
 
 logging:
   pattern:
-    console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(-%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:) %clr(%X{MDCFilter.UUID} :){red} %m%n %wEx'
+    console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(-%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(: requestId:) %clr(%X{MDCFilter.UUID} :) %clr(userId:) %clr(%X{MDCFilter.USER} :){red} %m%n %wEx'
 
 errors:
   expose-arguments: ALWAYS

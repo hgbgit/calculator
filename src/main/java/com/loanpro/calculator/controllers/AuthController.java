@@ -12,6 +12,8 @@ import com.loanpro.calculator.repository.UserRepository;
 import com.loanpro.calculator.security.jwt.JwtUtils;
 import com.loanpro.calculator.security.services.UserDetailsImpl;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +38,8 @@ import java.util.stream.Collectors;
 public class AuthController {
 
     private static final BigDecimal INITIAL_USER_BALANCE = BigDecimal.TEN;
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     private final AuthenticationManager authenticationManager;
 
     private final UserRepository userRepository;
@@ -56,31 +61,40 @@ public class AuthController {
     @PostMapping("/signin")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        logger.info("Request for sign of user: {}", loginRequest.getUsername());
 
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        try {
+            Authentication authentication = authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
+            ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(item -> item.getAuthority())
-                .collect(Collectors.toList());
+            List<String> roles = userDetails.getAuthorities().stream()
+                    .map(item -> item.getAuthority())
+                    .collect(Collectors.toList());
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(new UserInfoResponse(userDetails.getId(),
-                        userDetails.getUsername(),
-                        userDetails.getEmail(),
-                        roles,
-                        jwtCookie.getValue()));
+            logger.info("User successfully authenticated: {}", loginRequest.getUsername());
+            return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                    .body(new UserInfoResponse(userDetails.getId(),
+                            userDetails.getUsername(),
+                            userDetails.getEmail(),
+                            roles,
+                            jwtCookie.getValue()));
+        } catch (AuthenticationException aex) {
+            logger.debug("Error authenticating user {}", loginRequest.getUsername(), aex);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new MessageResponse("Invalid login."));
+        }
+
     }
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+        logger.info("Request for signup of new user: {}", signUpRequest.getUsername());
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
         }
@@ -89,6 +103,7 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
         }
 
+        logger.info("Applying the initial balance value of {} for new user: {}", this.INITIAL_USER_BALANCE, signUpRequest.getUsername());
         User user = new User(signUpRequest.getUsername(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
