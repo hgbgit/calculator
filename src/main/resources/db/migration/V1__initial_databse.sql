@@ -9,7 +9,7 @@ INSERT INTO operation VALUES (1,1.00,'ADDITION'),(2,1.00,'SUBTRACTION'),(3,2.00,
 
 CREATE TABLE record (id int NOT NULL AUTO_INCREMENT,
                      amount decimal(38,2) DEFAULT NULL,
-                     date datetime(6) DEFAULT NULL,``
+                     date datetime(6) DEFAULT NULL,
                      operation_response varchar(255) DEFAULT NULL,
                      user_balance decimal(38,2) DEFAULT NULL,
                      operation_id int DEFAULT NULL,
