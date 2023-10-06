@@ -58,20 +58,11 @@ You can have an overview of our Spring Boot Server with the diagram below:
 
 Selecting the Ideal Tech Stack: A Strategic Choice Driven by Time and Requirement. Due to the requirements i selected the tech stack below because of more know how to accomplish desired features.  
 
-## Java 17 and Spring 3.1.4
-
-Java 17 and Spring Framework 3.1.4 are significant updates in the world of Java development.
-
-Java 17, released in September 2021, is a long-term support (LTS) version, making it a stable choice for enterprises and developers. It brings several new features and enhancements to the Java platform, including improved performance, enhanced security, and new language features like pattern matching and sealed classes. Developers can take advantage of Java 17's capabilities to build robust and efficient applications.
-
-Spring Framework 3.1.4, on the other hand, is a release from the Spring Framework 3.x series, which was widely used in the past. While Spring 3.1.4 is not the latest version (as of my last knowledge update in September 2021, the latest version was Spring Framework 5.x), it's important to note that the Spring ecosystem has evolved considerably. Spring Framework 5.x and later versions have introduced many enhancements, including better support for reactive programming, improved performance, and simplified configuration.
-
-If you are using Spring Framework 3.1.4, it might be worth considering an upgrade to a more recent version like Spring Framework 5.x or Spring Boot to take advantage of the latest features, improvements, and ongoing support from the Spring community.
-
-In summary, while Java 17 is a noteworthy LTS release with various enhancements, Spring Framework 3.1.4 is a version from the past. It's advisable for developers to explore the newer versions of the Spring Framework to benefit from the latest advancements in Java and Spring technology for their applications.
 
 ## MDC - Filter
 
+In order to provide an easier traceability of user operation logs this project includ userId and requestId, also to know what happened step by step inside this backend and another backends too, filtering by user or by request id.
+![mdc](mdc.png)
 The MDC (Mapped Diagnostic Context) filter offers several valuable benefits in the world of logging and application monitoring:
 
 - Contextual Logging: MDC allows developers to associate contextual information, such as user IDs, session IDs, or request-specific data, with log entries. This makes it easier to understand the circumstances surrounding each log message.
@@ -85,6 +76,11 @@ The MDC (Mapped Diagnostic Context) filter offers several valuable benefits in t
 - Security and Auditing: MDC can be used to include security-related information in logs, aiding in security audits and compliance. For instance, you can log user authentication details or access control decisions.
 
 - Customization: MDC allows for flexible customization, enabling developers to define and include context data that aligns with their application's specific needs. In case of this project we use mdc filter to print user id as well as request id to enable a easier tracing when trying to solve problems.
+
+
+## Operations Strategies
+
+In order to allow faster implementations of new operations in calculator, we adopted strategy pattern so once uppon a time a new operation is required the developers only need to implement a class that follows OperationStrategy interface contract, and insert a new operation row with it cost in database.
 
 ## Feign Clients
 
