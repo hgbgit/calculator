@@ -59,5 +59,5 @@ CREATE TABLE users (id bigint NOT NULL AUTO_INCREMENT,
 
 
 
-INSERT INTO users VALUES (1,_binary '','email@hugobarros.com.br','$2a$10$Py8jk2SdiwAtw7N0LyEQru/7QZHoeFqN9qKCyYWo658aGAbe4bnlm',57.00,'hgb');
+INSERT INTO users VALUES (1, true,'email@hugobarros.com.br','$2a$10$Py8jk2SdiwAtw7N0LyEQru/7QZHoeFqN9qKCyYWo658aGAbe4bnlm',57.00,'hgb');
 
