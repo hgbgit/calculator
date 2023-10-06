@@ -1,7 +1,0 @@
-database: mysql
-
-spring.cloud.gcp.sql:
-    database-name: mysql-loanpro
-    instance-connection-name: loan-pro-calculator:us-central1:mysql-loanpro
-
-spring.sql.init.mode: always
