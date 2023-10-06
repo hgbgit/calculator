@@ -4,7 +4,6 @@ loanpro.app:
   jwtSecret: ======================loanpro=Spring===========================
 
 spring:
-  profiles.active: mysql
   database: mysql
   spring.cloud.gcp.sql:
   database-name: mysql-loanpro
