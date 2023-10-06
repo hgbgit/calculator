@@ -4,12 +4,11 @@ loanpro.app:
   jwtSecret: ======================loanpro=Spring===========================
 
 spring:
-  cloud.gcp:
-    sql.instance-connection-name: loan-pro-calculator:us-central1:mysql-loanpro
-    sql.database-name: loanpro
-  datasource.username: root
-  datasource.password: tutipapai@21
-  datasource.hikari.maximum-pool-size: 10
+  profiles.active: mysql
+  datasource:
+    username: loan_pro
+    url: jdbc:mysql://localhost:3306/loan_pro?allowPublicKeyRetrieval=true&useSSL=false
+    password: 'loan_pro_path'
   jpa:
     hibernate.dialect: org.hibernate.dialect.MySQLDialect
   flyway:
