@@ -137,6 +137,11 @@ cd target
 java -jar loan_pro_calculator.jar 
 ```
 
+## Build locally
+
+```bash 
+mvn clean install
+```
 ## Running tests locally
 
 ``` mvn verify ```
