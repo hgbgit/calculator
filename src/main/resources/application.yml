@@ -4,22 +4,16 @@ loanpro.app:
   jwtSecret: ======================loanpro=Spring===========================
 
 spring:
-  database: mysql
-  spring.cloud.gcp.sql:
-  database-name: mysql-loanpro
-  instance-connection-name: loan-pro-calculator:us-central1:mysql-loanpro
-
-  sql.init.mode: always
-#  datasource:
-#    username: loan_pro
-#    url: jdbc:mysql://localhost:3306/loan_pro?allowPublicKeyRetrieval=true&useSSL=false
-#    password: 'loan_pro_path'
-#  jpa:
-#    hibernate.dialect: org.hibernate.dialect.MySQLDialect
-#  flyway:
-#    baselineOnMigrate: true
-#  mvc.throw-exception-if-no-handler-found: true
-#  web.resources.add-mappings: false
+  datasource:
+    username: root
+    url: jdbc:mysql://34.27.72.171:3306/loan_pro?allowPublicKeyRetrieval=true&useSSL=false
+    password: 'tututipapai@21'
+  jpa:
+    hibernate.dialect: org.hibernate.dialect.MySQLDialect
+  flyway:
+    baselineOnMigrate: true
+  mvc.throw-exception-if-no-handler-found: true
+  web.resources.add-mappings: false
 
 
 feign:
