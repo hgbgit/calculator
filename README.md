@@ -70,6 +70,22 @@ If you are using Spring Framework 3.1.4, it might be worth considering an upgrad
 
 In summary, while Java 17 is a noteworthy LTS release with various enhancements, Spring Framework 3.1.4 is a version from the past. It's advisable for developers to explore the newer versions of the Spring Framework to benefit from the latest advancements in Java and Spring technology for their applications.
 
+## MDC - Filter
+
+The MDC (Mapped Diagnostic Context) filter offers several valuable benefits in the world of logging and application monitoring:
+
+- Contextual Logging: MDC allows developers to associate contextual information, such as user IDs, session IDs, or request-specific data, with log entries. This makes it easier to understand the circumstances surrounding each log message.
+
+- Thread Safety: In multi-threaded applications, MDC ensures that each thread has its own isolated context. This prevents context data from being mixed up between threads, providing accurate and reliable logging.
+
+- Correlation: MDC is particularly useful in distributed systems and microservices architectures. It enables the correlation of log entries across multiple services, making it simpler to trace the flow of a request or transaction as it moves through various components.
+
+- Debugging and Troubleshooting: With context-rich logs, developers can quickly pinpoint issues and troubleshoot problems. MDC-filtered logs provide essential details to identify the root causes of errors and failures.
+
+- Security and Auditing: MDC can be used to include security-related information in logs, aiding in security audits and compliance. For instance, you can log user authentication details or access control decisions.
+
+- Customization: MDC allows for flexible customization, enabling developers to define and include context data that aligns with their application's specific needs. In case of this project we use mdc filter to print user id as well as request id to enable a easier tracing when trying to solve problems.
+
 ## Feign Clients
 
 Feign clients are a crucial component in modern microservices architecture and API communication. These clients are a part of the Spring Cloud ecosystem, a framework that simplifies the development of cloud-native applications.
@@ -105,6 +121,8 @@ Cucumber offers several benefits in the BDD approach:
 - Behavior-Driven: Cucumber encourages teams to focus on the desired behavior and outcomes, which can lead to more user-centric and effective software.
 
 # Mysql database
+
+This project uses a Mysql 8 database.
 
 # Running Local
 
