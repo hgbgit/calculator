@@ -7,7 +7,15 @@ import br.com.nutri.tool.data.entity.claim.ClaimStatus;
 import br.com.nutri.tool.data.entity.key.Key;
 import br.com.nutri.tool.data.entity.key.KeyStatus;*/
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.wnameless.json.unflattener.JsonUnflattener;
+import com.loanpro.calculator.models.Operation;
+import com.loanpro.calculator.models.Role;
+import io.cucumber.java.DataTableType;
+import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 public class TableTransformer {
 
@@ -17,11 +25,20 @@ public class TableTransformer {
         this.objectMapper = objectMapper;
     }
 
-  /*  @DataTableType
-    public Key defineKey(Map<String, String> entry) throws JsonProcessingException {
-        return objectMapper.readValue(this.getUnflatten(entry), Key.class);
+    @DataTableType
+    public Role defineRole(Map<String, String> entry) throws JsonProcessingException {
+        return objectMapper.readValue(this.getUnflatten(entry), Role.class);
     }
 
+    @DataTableType
+    public Operation defineOperation(Map<String, String> entry) throws JsonProcessingException {
+        return objectMapper.readValue(this.getUnflatten(entry), Operation.class);
+    }
+
+    private String getUnflatten(Map<String, String> entry) throws JsonProcessingException {
+        return JsonUnflattener.unflatten(objectMapper.writeValueAsString(entry));
+    }
+ /*
     @DataTableType
     public Owner defineOwner(Map<String, String> entry) throws JsonProcessingException {
         return objectMapper.readValue(this.getUnflatten(entry), Owner.class);
@@ -52,8 +69,6 @@ public class TableTransformer {
         return ClaimStatus.valueOf(claimStatus);
     }
 
-    private String getUnflatten(Map<String, String> entry) throws JsonProcessingException {
-        return JsonUnflattener.unflatten(objectMapper.writeValueAsString(entry));
-    }
+
 */
 }
