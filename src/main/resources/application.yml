@@ -4,16 +4,17 @@ loanpro.app:
   jwtSecret: ======================loanpro=Spring===========================
 
 spring:
-  datasource:
-    username: loan_pro
-    url: jdbc:mysql://localhost:3306/loan_pro?allowPublicKeyRetrieval=true&useSSL=false
-    password: 'loan_pro_path'
-  jpa:
-    hibernate.dialect: org.hibernate.dialect.MySQLDialect
-  flyway:
-    baselineOnMigrate: true
-  mvc.throw-exception-if-no-handler-found: true
-  web.resources.add-mappings: false
+  profiles.active: mysql
+#  datasource:
+#    username: loan_pro
+#    url: jdbc:mysql://localhost:3306/loan_pro?allowPublicKeyRetrieval=true&useSSL=false
+#    password: 'loan_pro_path'
+#  jpa:
+#    hibernate.dialect: org.hibernate.dialect.MySQLDialect
+#  flyway:
+#    baselineOnMigrate: true
+#  mvc.throw-exception-if-no-handler-found: true
+#  web.resources.add-mappings: false
 
 
 feign:
