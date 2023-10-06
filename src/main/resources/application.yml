@@ -5,6 +5,12 @@ loanpro.app:
 
 spring:
   profiles.active: mysql
+  database: mysql
+  spring.cloud.gcp.sql:
+  database-name: mysql-loanpro
+  instance-connection-name: loan-pro-calculator:us-central1:mysql-loanpro
+
+  sql.init.mode: always
 #  datasource:
 #    username: loan_pro
 #    url: jdbc:mysql://localhost:3306/loan_pro?allowPublicKeyRetrieval=true&useSSL=false
