@@ -4,10 +4,11 @@ loanpro.app:
   jwtSecret: ======================loanpro=Spring===========================
 
 spring:
+  profiles.active: mysql
   datasource:
-    username: root
-    url: jdbc:mysql://34.27.72.171:3306/loan_pro?allowPublicKeyRetrieval=true&useSSL=false
-    password: 'tututipapai@21'
+    username: loan_pro
+    url: jdbc:mysql://localhost:3306/loan_pro?allowPublicKeyRetrieval=true&useSSL=false
+    password: 'loan_pro_path'
   jpa:
     hibernate.dialect: org.hibernate.dialect.MySQLDialect
   flyway:
